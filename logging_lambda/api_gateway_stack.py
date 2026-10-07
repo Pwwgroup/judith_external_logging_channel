@@ -60,7 +60,7 @@ class ExternalLoggerGatewayStack(BaseStack):
 
         route_resource = api.root.add_resource(route_segment)
 
-        log_resource = route_resource.add_resource("log")
+        log_resource = route_resource.add_resource("extrernal_log")
 
         log_resource.add_method(
             "POST",
