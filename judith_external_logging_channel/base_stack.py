@@ -5,7 +5,7 @@ from typing import Any
 from aws_cdk import RemovalPolicy, Stack, Tags
 from constructs import Construct
 
-from logging_lambda.config.config import EnvConfig
+from judith_external_logging_channel.config.config import EnvConfig
 
 
 class BaseStack(Stack):

@@ -2,8 +2,8 @@ from aws_cdk import Duration
 from aws_cdk import aws_lambda as _lambda
 from aws_cdk import aws_logs as logs
 
-from logging_lambda.base_stack import BaseStack
-from logging_lambda.config.config import EnvConfig
+from judith_external_logging_channel.base_stack import BaseStack
+from judith_external_logging_channel.config.config import EnvConfig
 
 from constructs import Construct
 

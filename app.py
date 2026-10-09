@@ -5,9 +5,9 @@ import aws_cdk as cdk
 from aws_cdk import Stage, App
 from typing import Any
 
-from logging_lambda.api_gateway_stack import ExternalLoggerGatewayStack
-from logging_lambda.logging_lambda_stack import LoggingLambdaStack
-from logging_lambda.config.config import EnvConfig
+from judith_external_logging_channel.api_gateway_stack import ExternalLoggerGatewayStack
+from judith_external_logging_channel.logging_lambda_stack import LoggingLambdaStack
+from judith_external_logging_channel.config.config import EnvConfig
 
 
 class EnvironmentStage(Stage):

@@ -1,7 +1,7 @@
 from aws_cdk import Duration, aws_lambda, aws_apigateway
-from logging_lambda.integrations.ssm_integration import get_ssm_parameter
-from logging_lambda.base_stack import BaseStack
-from logging_lambda.config.config import EnvConfig
+from judith_external_logging_channel.integrations.ssm_integration import get_ssm_parameter
+from judith_external_logging_channel.base_stack import BaseStack
+from judith_external_logging_channel.config.config import EnvConfig
 
 from typing import Any
 from constructs import Construct
@@ -60,7 +60,7 @@ class ExternalLoggerGatewayStack(BaseStack):
 
         route_resource = api.root.add_resource(route_segment)
 
-        log_resource = route_resource.add_resource("extrernal_log")
+        log_resource = route_resource.add_resource("external_log")
 
         log_resource.add_method(
             "POST",
