@@ -15,7 +15,6 @@ class JsonFormatter(logging.Formatter):
                 record.created, timezone.utc
             ).isoformat(),
             "level": record.levelname,
-            "logger": record.name,
             "message": record.getMessage(),
             "external_route": getattr(record, "external_route", None),
             "journey_id": getattr(record, "journey_id", None),
@@ -35,7 +34,7 @@ def configure_logger(logger_name: Optional[str] = None) -> logging.Logger:
     resource_id = os.environ.get("ENVIRONMENT") or "dev"
 
     if resource_id.lower() == PROD.lower():
-        logger.setLevel(logging.WARN)
+        logger.setLevel(logging.WARNING)
     else:
         logger.setLevel(logging.DEBUG)
 
