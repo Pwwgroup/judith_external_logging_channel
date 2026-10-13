@@ -5,28 +5,8 @@ import aws_cdk as cdk
 from aws_cdk import Stage, App
 from typing import Any
 
-from judith_external_logging_channel.api_gateway_stack import ExternalLoggerGatewayStack
-from judith_external_logging_channel.logging_lambda_stack import LoggingLambdaStack
 from judith_external_logging_channel.config.config import EnvConfig
-
-
-class EnvironmentStage(Stage):
-    def __init__(
-        self, scope: App, stage_id: str, *, env_config: EnvConfig, **kwargs: Any
-    ) -> None:
-        super().__init__(scope, stage_id, env=env_config.cdk_env(), **kwargs)
-
-        self.logging_lambda_stack = LoggingLambdaStack(
-            self, "LoggingLambdaStack", env_config=env_config
-        )
-
-        self.api_gateway_stack = ExternalLoggerGatewayStack(
-            self,
-            "ExternalLoggerApiGatewayStack",
-            env_config=env_config,
-            logging_lambda=self.logging_lambda_stack.external_logging_lambda,
-        )
-        self.api_gateway_stack.add_dependency(self.logging_lambda_stack)
+from judith_external_logging_channel.environment_stage import EnvironmentStage
 
 
 app = cdk.App()
@@ -42,6 +22,6 @@ if not account or not region or not context_env:
 
 cfg_dev = EnvConfig(env_id=context_env, account=account, region=region)
 
-EnvironmentStage(app, "LoggingLambdaStage", env_config=cfg_dev)
+EnvironmentStage(app, "JudithLoggingDev", env_config=cfg_dev)
 
 app.synth()
