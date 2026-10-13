@@ -33,9 +33,9 @@ class EnvironmentStage(cdk.Stage):
             "JudithLoggingLambdaStack",
             env_config=env_config,
             vpc=self.foundation.vpc,
-            api_gateway=self.api_gateway.api_gateway,
+            api_gateway_id=self.api_gateway.api_gateway_references.api_gateway_id,
+            root_resource_id=self.api_gateway.api_gateway_references.root_resource_id,
             authorizer=self.api_gateway.authorizer,
         )
-    
+
         self.logging_lambda_stack.add_dependency(self.foundation)
-        self.logging_lambda_stack.add_dependency(self.api_gateway)

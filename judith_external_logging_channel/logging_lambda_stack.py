@@ -12,14 +12,29 @@ from constructs import Construct
 
 class LoggingLambdaStack(FoundationStack):
     def __init__(
-        self, scope: Construct, id: str, env_config: EnvConfig, vpc: ec2.IVpc, api_gateway: apigateway.IRestApi, authorizer: apigateway.IAuthorizer, **kwargs
+        self,
+        scope: Construct,
+        id: str,
+        env_config: EnvConfig,
+        vpc: ec2.IVpc,
+        api_gateway_id: str,
+        root_resource_id: str,
+        authorizer: apigateway.IAuthorizer,
+        **kwargs,
     ) -> None:
         super().__init__(scope, id, env_config=env_config, **kwargs)
 
-        self.external_logging_lambda = self._create_lambda_function()
         self.vpc = vpc
-        self.api_gateway = api_gateway
         self.authorizer = authorizer
+        # Imported in this stack's scope so the route, method and invoke permission
+        # are created alongside the Lambda rather than in ApiGatewayStack.
+        self.api_gateway = apigateway.RestApi.from_rest_api_attributes(
+            self,
+            self.name("SharedApiGateway"),
+            rest_api_id=api_gateway_id,
+            root_resource_id=root_resource_id,
+        )
+        self.external_logging_lambda = self._create_lambda_function()
         self._configure_route()
 
     def _create_lambda_function(self):
