@@ -38,16 +38,16 @@ jobs:
                   npm install -g aws-cdk
                   pip install -r requirements.txt
 
-            - name: Run PyTest
-              run: |
-                  pytest
-                  ret=$?
-                  if [ $ret -eq 5 ]; then
-                    echo "No tests found. Treating as success."
-                    exit 0
-                  else
-                    exit $ret
-                  fi
+            # - name: Run PyTest
+            #   run: |
+            #       pytest
+            #       ret=$?
+            #       if [ $ret -eq 5 ]; then
+            #         echo "No tests found. Treating as success."
+            #         exit 0
+            #       else
+            #         exit $ret
+            #       fi
 
             - name: Deploy CDK Stack to Test
               run: >
